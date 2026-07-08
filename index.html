@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星の標本箱 ｜ 作品集</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&display=swap');
+
+:root{
+  --ink-navy:#141d33;
+  --ink-navy-deep:#0b1120;
+  --parchment:#f1e6d0;
+  --parchment-light:#f9f2e2;
+  --brass:#c19a5b;
+  --brass-dark:#8f7038;
+  --dusty-rose:#a8677a;
+  --sage:#7c8a6a;
+  --star:#f4efe2;
+  --star-dim:rgba(244,239,226,0.35);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--ink-navy);
+  color:var(--star);
+  font-family:'EB Garamond','Noto Serif JP',serif;
+  font-size:17px;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+
+/* ---------- background star field ---------- */
+#bgStars{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+}
+
+/* ---------- typography helpers ---------- */
+.eyebrow{
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  font-size:0.72rem;
+  color:var(--brass);
+  font-weight:500;
+}
+h1,h2,h3{
+  font-family:'Cormorant Garamond','Noto Serif JP', serif;
+  font-weight:600;
+  letter-spacing:0.02em;
+}
+.roman{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  color:var(--brass);
+}
+
+/* ---------- header ---------- */
+header{
+  position:relative; z-index:5;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:2.2rem 6vw 1.4rem;
+}
+.brand{
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.35rem;
+  letter-spacing:0.08em;
+  color:var(--star);
+}
+.brand small{
+  display:block;
+  font-family:'EB Garamond',serif;
+  font-style:italic;
+  font-size:0.72rem;
+  color:var(--star-dim);
+  letter-spacing:0.15em;
+  margin-top:2px;
+}
+nav a{
+  color:var(--star);
+  text-decoration:none;
+  font-family:'Cormorant Garamond',serif;
+  letter-spacing:0.12em;
+  font-size:0.95rem;
+  margin-left:2.2rem;
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:border-color .35s ease, color .35s ease;
+}
+nav a:hover{ border-color:var(--brass); color:var(--brass); }
+
+/* ---------- hero / celestial mandala ---------- */
+.hero{
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center;
+  padding:2rem 5vw 5rem;
+}
+.badge-pill{
+  display:inline-flex; align-items:center; gap:0.6em;
+  padding:0.5em 1.6em;
+  border:1px solid var(--brass);
+  border-radius:999px;
+  margin-bottom:1.6rem;
+}
+.badge-pill::before, .badge-pill::after{
+  content:'✦';
+  color:var(--brass);
+  font-size:0.7em;
+}
+.hero h1{
+  font-size:clamp(2.1rem, 5vw, 3.6rem);
+  color:var(--parchment-light);
+  margin-bottom:0.6rem;
+}
+.hero p.lede{
+  max-width:36em;
+  color:var(--star-dim);
+  font-style:italic;
+  font-size:1.05rem;
+  margin-bottom:3rem;
+}
+
+.hero-frame{
+  position:relative;
+  padding:2.6rem;
+  border:1px solid var(--brass);
+}
+.hero-frame::before{
+  content:'';
+  position:absolute; inset:8px;
+  border:1px solid var(--brass-dark);
+  pointer-events:none;
+}
+.corner{
+  position:absolute;
+  width:44px; height:44px;
+  color:var(--brass);
+  pointer-events:none;
+}
+.corner svg{ width:100%; height:100%; display:block; }
+.corner.tl{ top:-1px; left:-1px; }
+.corner.tr{ top:-1px; right:-1px; transform:scaleX(-1); }
+.corner.bl{ bottom:-1px; left:-1px; transform:scaleY(-1); }
+.corner.br{ bottom:-1px; right:-1px; transform:scale(-1,-1); }
+
+.planisphere-wrap{
+  position:relative;
+  width:min(74vw, 500px);
+  aspect-ratio:1/1;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,0.55));
+}
+.planisphere-wrap svg{ width:100%; height:100%; display:block; }
+
+.ring{ transform-origin:300px 300px; }
+.ring-a{ animation: spinCW 210s linear infinite; }
+.ring-b{ animation: spinCCW 160s linear infinite; }
+.ring-c{ animation: spinCW 110s linear infinite; }
+.ring-d{ animation: spinCCW 68s linear infinite; }
+@keyframes spinCW{ to{ transform:rotate(360deg); } }
+@keyframes spinCCW{ to{ transform:rotate(-360deg); } }
+
+@media (prefers-reduced-motion: reduce){
+  .ring{ animation:none; }
+}
+
+.sun-moon-row{
+  display:flex; align-items:center; justify-content:center; gap:2.4rem;
+  margin-top:2.2rem;
+}
+.sm-item{
+  display:flex; align-items:center; gap:0.6rem;
+  color:var(--star-dim);
+}
+.sm-item svg{ width:22px; height:22px; color:var(--brass); flex-shrink:0; }
+.sm-item .sm-text{
+  text-align:left;
+  font-family:'Cormorant Garamond',serif;
+}
+.sm-item .sm-title{
+  display:block;
+  letter-spacing:0.22em;
+  font-size:0.72rem;
+  color:var(--brass);
+}
+.sm-item .sm-sub{
+  display:block;
+  font-style:italic;
+  font-size:0.88rem;
+  color:var(--star-dim);
+}
+.sm-div{ color:var(--brass-dark); font-size:1rem; }
+
+.scroll-hint{
+  margin-top:2.8rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.78rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--star-dim);
+}
+.scroll-hint::after{
+  content:'';
+  display:block;
+  width:1px; height:34px;
+  background:linear-gradient(var(--brass), transparent);
+  margin:10px auto 0;
+}
+
+/* ---------- section shells ---------- */
+section.plate{
+  position:relative; z-index:2;
+  max-width:1180px;
+  margin:0 auto;
+  padding:5.5rem 6vw 2rem;
+}
+.plate-head{
+  display:flex; align-items:baseline; gap:1.1rem;
+  margin-bottom:0.6rem;
+}
+.plate-num{
+  font-family:'Cormorant Garamond', serif;
+  font-size:2.6rem;
+  font-style:italic;
+  color:var(--brass);
+  line-height:1;
+}
+.plate-head h2{
+  font-size:1.9rem;
+  color:var(--parchment-light);
+}
+.plate-sub{
+  color:var(--star-dim);
+  font-style:italic;
+  max-width:40em;
+  margin-bottom:2.8rem;
+  font-size:0.98rem;
+}
+.rule{
+  height:1px;
+  background:linear-gradient(90deg, var(--brass) 0%, rgba(193,154,91,0.05) 70%);
+  margin-bottom:2.8rem;
+}
+
+/* ---------- illustrations grid ---------- */
+.grid-art{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+  gap:2rem;
+}
+.specimen{
+  background:var(--parchment);
+  color:var(--ink-navy-deep);
+  border-radius:2px;
+  overflow:hidden;
+  box-shadow:0 12px 28px rgba(0,0,0,0.35);
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.specimen:hover{ transform:translateY(-6px); box-shadow:0 22px 38px rgba(0,0,0,0.5); }
+.specimen .thumb{
+  aspect-ratio:4/3;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(193,154,91,0.35), transparent 60%),
+    linear-gradient(135deg, #2a3352, #141d33 70%);
+  position:relative;
+}
+.specimen .thumb::after{
+  content:'差し替え用画像\A（ここに絵を挿入）';
+  white-space:pre;
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  color:rgba(244,239,226,0.35);
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.75rem;
+  letter-spacing:0.08em;
+}
+.specimen .label{
+  padding:1rem 1.1rem 1.2rem;
+  border-top:1px solid rgba(143,112,56,0.3);
+}
+.specimen .label h3{
+  font-size:1.05rem;
+  margin-bottom:0.2rem;
+}
+.specimen .label .meta{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:0.82rem;
+  color:var(--brass-dark);
+  letter-spacing:0.03em;
+}
+
+/* ---------- novels ---------- */
+.list-novel{ display:flex; flex-direction:column; gap:0; }
+.novel-item{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:1.6rem;
+  align-items:baseline;
+  padding:1.7rem 0;
+  border-bottom:1px solid rgba(193,154,91,0.18);
+}
+.novel-item .idx{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  color:var(--brass);
+  font-size:1.1rem;
+  min-width:1.6em;
+}
+.novel-item h3{
+  font-size:1.25rem;
+  color:var(--parchment-light);
+  margin-bottom:0.35rem;
+}
+.novel-item p{
+  color:var(--star-dim);
+  font-size:0.95rem;
+  max-width:46em;
+}
+.novel-item .tag{
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.78rem;
+  letter-spacing:0.12em;
+  color:var(--sage);
+  text-transform:uppercase;
+}
+.readmore{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:0.9rem;
+  color:var(--brass);
+  text-decoration:none;
+  border-bottom:1px solid var(--brass-dark);
+  white-space:nowrap;
+  align-self:center;
+}
+.readmore:hover{ color:var(--parchment-light); border-color:var(--parchment-light); }
+
+/* ---------- music ---------- */
+.list-music{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(320px,1fr));
+  gap:1.6rem;
+}
+.track{
+  background:rgba(244,239,226,0.04);
+  border:1px solid rgba(193,154,91,0.25);
+  border-radius:2px;
+  padding:1.4rem 1.5rem;
+  display:flex; flex-direction:column; gap:0.9rem;
+}
+.track-head{ display:flex; align-items:center; gap:1rem; }
+.disc{
+  width:46px; height:46px; border-radius:50%;
+  background:
+    radial-gradient(circle at center, var(--ink-navy-deep) 0 14%, transparent 15%),
+    conic-gradient(from 0deg, #2a3352, #141d33, #2a3352);
+  border:1px solid var(--brass-dark);
+  flex-shrink:0;
+}
+.track h3{ font-size:1.1rem; color:var(--parchment-light); }
+.track .meta{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:0.82rem; color:var(--brass-dark);
+}
+.track p.desc{ color:var(--star-dim); font-size:0.92rem; }
+audio{
+  width:100%;
+  filter:invert(0.88) sepia(0.15) saturate(0.6);
+  border-radius:20px;
+}
+
+/* ---------- flower divider ---------- */
+.divider{
+  display:flex; align-items:center; justify-content:center;
+  gap:1rem;
+  margin:1rem 0 3rem;
+  color:var(--brass-dark);
+}
+.divider svg{ width:26px; height:26px; }
+.divider::before, .divider::after{
+  content:''; height:1px; width:min(180px, 20vw);
+  background:linear-gradient(90deg, transparent, var(--brass-dark));
+}
+.divider::after{ background:linear-gradient(90deg, var(--brass-dark), transparent); }
+
+/* ---------- footer ---------- */
+footer{
+  position:relative; z-index:2;
+  text-align:center;
+  padding:4rem 6vw 3rem;
+  color:var(--star-dim);
+  font-size:0.85rem;
+}
+footer .brand-mark{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  color:var(--brass);
+  letter-spacing:0.1em;
+  margin-bottom:0.6rem;
+  font-size:1rem;
+}
+
+@media (max-width:640px){
+  header{ flex-direction:column; gap:1rem; text-align:center; }
+  nav a{ margin:0 0.8rem; }
+  .novel-item{ grid-template-columns:auto 1fr; }
+  .readmore{ grid-column:2; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgStars"></canvas>
+
+<header>
+  <div class="brand">星の標本箱<small>a cabinet of stars, ink &amp; sound</small></div>
+  <nav>
+    <a href="#art">絵</a>
+    <a href="#novel">小説</a>
+    <a href="#music">音楽</a>
+  </nav>
+</header>
+
+<!-- ============ HERO / 天球のマンダラ ============ -->
+<section class="hero">
+  <div class="badge-pill eyebrow">Personal Archive — Est. 2026</div>
+  <h1>描いたもの、書いたもの、鳴らしたもの。</h1>
+  <p class="lede">古い星図帳をめくるように、静かにここへしまっています。<br>盤はそれぞれの速さで、夜のあいだも回り続けます。</p>
+
+  <div class="hero-frame">
+    <div class="corner tl"><svg viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M44,11 C22,11 11,22 11,44"/>
+      <path d="M44,19 C28,19 19,28 19,44" stroke-width="0.7" opacity="0.7"/>
+      <path d="M8,3 L11,8 L8,13 L5,8 Z" fill="currentColor" stroke="none"/>
+    </g></svg></div>
+    <div class="corner tr"><svg viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M44,11 C22,11 11,22 11,44"/>
+      <path d="M44,19 C28,19 19,28 19,44" stroke-width="0.7" opacity="0.7"/>
+      <path d="M8,3 L11,8 L8,13 L5,8 Z" fill="currentColor" stroke="none"/>
+    </g></svg></div>
+    <div class="corner bl"><svg viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M44,11 C22,11 11,22 11,44"/>
+      <path d="M44,19 C28,19 19,28 19,44" stroke-width="0.7" opacity="0.7"/>
+      <path d="M8,3 L11,8 L8,13 L5,8 Z" fill="currentColor" stroke="none"/>
+    </g></svg></div>
+    <div class="corner br"><svg viewBox="0 0 44 44"><g fill="none" stroke="currentColor" stroke-width="1.1">
+      <path d="M44,11 C22,11 11,22 11,44"/>
+      <path d="M44,19 C28,19 19,28 19,44" stroke-width="0.7" opacity="0.7"/>
+      <path d="M8,3 L11,8 L8,13 L5,8 Z" fill="currentColor" stroke="none"/>
+    </g></svg></div>
+
+    <div class="planisphere-wrap">
+      <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="discGrad" cx="50%" cy="50%" r="65%">
+            <stop offset="0%" stop-color="#232d4d"/>
+            <stop offset="75%" stop-color="#141d33"/>
+            <stop offset="100%" stop-color="#0b1120"/>
+          </radialGradient>
+          <radialGradient id="rimGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f1e6d0"/>
+            <stop offset="100%" stop-color="#d8c49f"/>
+          </radialGradient>
+          <filter id="soft"><feGaussianBlur stdDeviation="0.4"/></filter>
+          <filter id="mwBlur" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="13"/>
+          </filter>
+          <clipPath id="discClip"><circle cx="300" cy="300" r="263"/></clipPath>
+          <radialGradient id="mwGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e4ebfa" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#e4ebfa" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- zodiac glyphs, drawn as line art so they render gold/white -- never colour-emoji -->
+          <symbol id="z-aries" viewBox="-10 -10 20 20"><path d="M-6,3 C-9,-2 -6,-7 -1,-5 M1,-5 C6,-7 9,-2 6,3 M0,-5 L0,7"/></symbol>
+          <symbol id="z-taurus" viewBox="-10 -10 20 20"><circle cx="0" cy="3" r="4"/><path d="M-4,-1 C-7,-7 -3,-9 -2,-4 M4,-1 C7,-7 3,-9 2,-4"/></symbol>
+          <symbol id="z-gemini" viewBox="-10 -10 20 20"><path d="M-4,-7 L-4,7 M4,-7 L4,7 M-6,-7 L6,-7 M-6,7 L6,7"/></symbol>
+          <symbol id="z-cancer" viewBox="-10 -10 20 20"><circle cx="-4" cy="-3" r="2.4"/><circle cx="4" cy="3" r="2.4"/><path d="M-1,-6 C3,-8 7,-4 5,0 M1,6 C-3,8 -7,4 -5,0"/></symbol>
+          <symbol id="z-leo" viewBox="-10 -10 20 20"><path d="M-7,-1 C-7,-6 -1,-6 -1,-1 C-1,2 -4,2 -4,4 C-4,7 1,8 4,5 C7,2 6,-2 3,-4"/></symbol>
+          <symbol id="z-virgo" viewBox="-10 -10 20 20"><path d="M-7,7 L-7,-6 L-4,7 L-1,-6 L-1,7 L2,-6 M2,3 C5,1 8,4 5,7 C3,8 1,6 3,4"/></symbol>
+          <symbol id="z-libra" viewBox="-10 -10 20 20"><path d="M-7,1 L7,1 M0,-7 L0,1 M-6,6 L6,6 M-7,1 C-9,1 -9,-2 -7,-2 M7,1 C9,1 9,-2 7,-2"/></symbol>
+          <symbol id="z-scorpio" viewBox="-10 -10 20 20"><path d="M-8,7 L-8,-6 L-5,7 L-2,-6 L-2,7 L3,7 C7,7 8,3 5,1"/></symbol>
+          <symbol id="z-sagittarius" viewBox="-10 -10 20 20"><path d="M-7,7 L7,-7 M7,-7 L1,-7 M7,-7 L7,-1 M-2,3 L2,-1"/></symbol>
+          <symbol id="z-capricorn" viewBox="-10 -10 20 20"><path d="M-7,-6 C-9,-1 -5,1 -3,-2 L-3,6 M-3,-2 C1,-7 6,-6 6,-2 C6,2 2,3 0,1 C-2,-1 2,-3 4,0 C6,3 4,7 1,6"/></symbol>
+          <symbol id="z-aquarius" viewBox="-10 -10 20 20"><path d="M-8,-3 L-5,0 L-2,-3 L1,0 L4,-3 L7,0 M-8,4 L-5,7 L-2,4 L1,7 L4,4 L7,7"/></symbol>
+          <symbol id="z-pisces" viewBox="-10 -10 20 20"><path d="M-8,-4 C-10,0 -8,4 -5,4 C-2,4 0,0 -3,-3 M8,4 C10,0 8,-4 5,-4 C2,-4 0,0 3,3 M-3,-3 L3,3"/></symbol>
+
+          <symbol id="hexagram" viewBox="-20 -20 40 40">
+            <path d="M0,-18 L15.6,9 L-15.6,9 Z"/>
+            <path d="M0,18 L15.6,-9 L-15.6,-9 Z"/>
+          </symbol>
+          <symbol id="moon-icon" viewBox="-10 -10 20 20">
+            <path d="M4,-8 A8,8 0 1,0 4,8 A6.2,6.2 0 1,1 4,-8 Z"/>
+          </symbol>
+          <symbol id="sun-icon" viewBox="-10 -10 20 20">
+            <circle cx="0" cy="0" r="3.4" fill="none"/>
+            <g stroke-linecap="round">
+              <line x1="0" y1="-9" x2="0" y2="-6"/><line x1="0" y1="9" x2="0" y2="6"/>
+              <line x1="-9" y1="0" x2="-6" y2="0"/><line x1="9" y1="0" x2="6" y2="0"/>
+              <line x1="-6.4" y1="-6.4" x2="-4.2" y2="-4.2"/><line x1="6.4" y1="6.4" x2="4.2" y2="4.2"/>
+              <line x1="-6.4" y1="6.4" x2="-4.2" y2="4.2"/><line x1="6.4" y1="-6.4" x2="4.2" y2="-4.2"/>
+            </g>
+          </symbol>
+        </defs>
+
+        <!-- outer parchment rim -->
+        <circle cx="300" cy="300" r="292" fill="url(#rimGrad)" stroke="#8f7038" stroke-width="2"/>
+        <circle cx="300" cy="300" r="266" fill="url(#discGrad)" stroke="#8f7038" stroke-width="1.5"/>
+
+        <!-- fixed outer ring: month ticks + numerals -->
+        <g id="fixedRing" fill="none" stroke="#8f7038" stroke-width="1">
+          <circle cx="300" cy="300" r="278" />
+          <circle cx="300" cy="300" r="266" />
+        </g>
+        <g id="monthTicks" stroke="#8f7038" stroke-width="1"></g>
+        <g id="monthLabels" fill="#5c4423" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" text-anchor="middle"></g>
+
+        <!-- four flower cartouches at cardinal points -->
+        <g id="flowerCartouches" fill="none" stroke="#8f7038" stroke-width="1.1"></g>
+
+        <!-- independently rotating rings, clipped to the disc -->
+        <g id="starWheel" clip-path="url(#discClip)">
+
+          <g class="ring ring-a">
+            <g id="milkyWay" filter="url(#mwBlur)"></g>
+            <g id="constellations" stroke="#eadfc4" stroke-width="0.8" fill="#f4efe2"></g>
+            <g id="constellationLabels" fill="#c9b98a" font-family="Cormorant Garamond, serif" font-style="italic" font-size="9" text-anchor="middle" letter-spacing="0.5"></g>
+            <g id="scatterStars" fill="#f4efe2"></g>
+          </g>
+
+          <g class="ring ring-b">
+            <g id="celestialRings" fill="none" stroke="#5c4423" stroke-width="0.6"></g>
+            <g id="ringLabels" fill="#8f7038" font-family="Cormorant Garamond, serif" font-style="italic" font-size="9.5" letter-spacing="1.5"></g>
+            <g id="hourLines" stroke="#3c3220" stroke-width="0.4" opacity="0.55"></g>
+            <circle cx="300" cy="300" r="248" fill="none" stroke="#5c4423" stroke-width="0.6" stroke-dasharray="1 5"/>
+          </g>
+
+          <g class="ring ring-c">
+            <g id="zodiacRing" color="#d9bd85"></g>
+          </g>
+
+          <g class="ring ring-d">
+            <circle cx="300" cy="300" r="100" fill="none" stroke="#5c4423" stroke-width="0.6" opacity="0.65"/>
+            <use href="#hexagram" x="225" y="225" width="150" height="150" fill="none" stroke="#c19a5b" stroke-width="1.1"/>
+            <use href="#moon-icon" x="287" y="219" width="26" height="26" fill="#e7cd97" stroke="none"/>
+            <use href="#sun-icon" x="287" y="355" width="26" height="26" fill="none" stroke="#e7cd97" stroke-width="1.2"/>
+          </g>
+
+          <circle cx="300" cy="300" r="2.2" fill="#fff6df"/>
+        </g>
+
+        <!-- brass pivot -->
+        <circle cx="300" cy="300" r="7" fill="#c19a5b" stroke="#5c4423" stroke-width="1"/>
+        <circle cx="300" cy="300" r="2.4" fill="#3c2c14"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="sun-moon-row">
+    <div class="sm-item">
+      <svg viewBox="-10 -10 20 20" fill="currentColor"><path d="M4,-8 A8,8 0 1,0 4,8 A6.2,6.2 0 1,1 4,-8 Z"/></svg>
+      <span class="sm-text"><span class="sm-title">MOON</span><span class="sm-sub">星降る夜に</span></span>
+    </div>
+    <span class="sm-div">✦</span>
+    <div class="sm-item">
+      <svg viewBox="-10 -10 20 20" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="3.4"/><g stroke-linecap="round"><line x1="0" y1="-9" x2="0" y2="-6"/><line x1="0" y1="9" x2="0" y2="6"/><line x1="-9" y1="0" x2="-6" y2="0"/><line x1="9" y1="0" x2="6" y2="0"/><line x1="-6.4" y1="-6.4" x2="-4.2" y2="-4.2"/><line x1="6.4" y1="6.4" x2="4.2" y2="4.2"/><line x1="-6.4" y1="6.4" x2="-4.2" y2="4.2"/><line x1="6.4" y1="-6.4" x2="4.2" y2="-4.2"/></g></svg>
+      <span class="sm-text"><span class="sm-title">SUN</span><span class="sm-sub">黄金の刻に</span></span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Turn the plates, then scroll</div>
+</section>
+
+
+<!-- ============ 絵 ============ -->
+<section class="plate" id="art">
+  <div class="plate-head">
+    <span class="plate-num roman">Ⅰ</span>
+    <h2>絵 — Illustrations</h2>
+  </div>
+  <p class="plate-sub">紙の上に残した色と線。季節ごとに描き溜めたものから、いくつか。</p>
+  <div class="rule"></div>
+
+  <div class="grid-art">
+    <article class="specimen">
+      <div class="thumb"></div>
+      <div class="label">
+        <h3>宵の花図</h3>
+        <div class="meta">水彩・2026</div>
+      </div>
+    </article>
+    <article class="specimen">
+      <div class="thumb"></div>
+      <div class="label">
+        <h3>星辰標本</h3>
+        <div class="meta">インク・2025</div>
+      </div>
+    </article>
+    <article class="specimen">
+      <div class="thumb"></div>
+      <div class="label">
+        <h3>硝子の温室</h3>
+        <div class="meta">デジタル・2025</div>
+      </div>
+    </article>
+    <article class="specimen">
+      <div class="thumb"></div>
+      <div class="label">
+        <h3>旧暦のうた</h3>
+        <div class="meta">色鉛筆・2024</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="divider">
+  <svg viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle cx="20" cy="20" r="2.4" fill="currentColor" stroke="none"/>
+    <path d="M20 20 C 14 12, 8 12, 20 20 C 8 28, 14 28, 20 20"/>
+    <path d="M20 20 C 26 12, 32 12, 20 20 C 32 28, 26 28, 20 20"/>
+    <path d="M20 20 C 12 14, 12 8, 20 20 C 28 8, 28 14, 20 20"/>
+    <path d="M20 20 C 12 26, 12 32, 20 20 C 28 32, 28 26, 20 20"/>
+  </g></svg>
+</div>
+
+<!-- ============ 小説 ============ -->
+<section class="plate" id="novel">
+  <div class="plate-head">
+    <span class="plate-num roman">Ⅱ</span>
+    <h2>小説 — Words</h2>
+  </div>
+  <p class="plate-sub">短編、掌編、書きかけの物語。読み終えたら、続きはまたいつか。</p>
+  <div class="rule"></div>
+
+  <div class="list-novel">
+    <div class="novel-item">
+      <span class="idx roman">i</span>
+      <div>
+        <span class="tag">掌編・約2,000字</span>
+        <h3>硝子の暦</h3>
+        <p>祖母の家に残された古い早見盤には、まだ見たことのない星座が描き込まれていた——。</p>
+      </div>
+      <a class="readmore" href="#">つづきを読む →</a>
+    </div>
+    <div class="novel-item">
+      <span class="idx roman">ii</span>
+      <div>
+        <span class="tag">短編・約6,000字</span>
+        <h3>花時計の下で</h3>
+        <p>時報のかわりに花が開く街で、時間を売る仕事をしている少女の話。</p>
+      </div>
+      <a class="readmore" href="#">つづきを読む →</a>
+    </div>
+    <div class="novel-item">
+      <span class="idx roman">iii</span>
+      <div>
+        <span class="tag">連載・第1話</span>
+        <h3>夜間植物園だより</h3>
+        <p>閉園後の温室でだけ働く庭師と、そこに迷い込んだ旅人の記録。</p>
+      </div>
+      <a class="readmore" href="#">つづきを読む →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <svg viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle cx="20" cy="20" r="2.4" fill="currentColor" stroke="none"/>
+    <path d="M20 20 C 14 12, 8 12, 20 20 C 8 28, 14 28, 20 20"/>
+    <path d="M20 20 C 26 12, 32 12, 20 20 C 32 28, 26 28, 20 20"/>
+    <path d="M20 20 C 12 14, 12 8, 20 20 C 28 8, 28 14, 20 20"/>
+    <path d="M20 20 C 12 26, 12 32, 20 20 C 28 32, 28 26, 20 20"/>
+  </g></svg>
+</div>
+
+<!-- ============ 音楽 ============ -->
+<section class="plate" id="music">
+  <div class="plate-head">
+    <span class="plate-num roman">Ⅲ</span>
+    <h2>音楽 — Sound</h2>
+  </div>
+  <p class="plate-sub">録りためた小さな曲たち。音声ファイルを差し替えるとそのまま再生できます。</p>
+  <div class="rule"></div>
+
+  <div class="list-music">
+    <div class="track">
+      <div class="track-head">
+        <div class="disc"></div>
+        <div>
+          <h3>回転する盤</h3>
+          <div class="meta">piano / 3:12</div>
+        </div>
+      </div>
+      <p class="desc">早見盤が回る音を想像しながら作った小品。</p>
+      <audio controls></audio>
+    </div>
+    <div class="track">
+      <div class="track-head">
+        <div class="disc"></div>
+        <div>
+          <h3>温室の午前二時</h3>
+          <div class="meta">ambient / 4:45</div>
+        </div>
+      </div>
+      <p class="desc">夜の温室をイメージしたアンビエント曲。</p>
+      <audio controls></audio>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-mark">星の標本箱</div>
+  <div>© 2026 — すべての作品はご自身のものに差し替えてお使いください。</div>
+</footer>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const cx = 300, cy = 300;
+const toRad = d => d * Math.PI / 180;
+const pt = (r, deg) => [cx + r*Math.cos(toRad(deg-90)), cy + r*Math.sin(toRad(deg-90))];
+
+/* ---- month ring (fixed) ---- */
+const ticksG = document.getElementById('monthTicks');
+const labelsG = document.getElementById('monthLabels');
+for(let i=0;i<24;i++){
+  const deg = i*15;
+  const long = i%2===0;
+  const [x1,y1] = pt(266, deg);
+  const [x2,y2] = pt(long?278:272, deg);
+  const line = document.createElementNS(NS,'line');
+  line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+  ticksG.appendChild(line);
+}
+const months = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+months.forEach((m,i)=>{
+  const deg = i*30;
+  const [x,y] = pt(287, deg);
+  const t = document.createElementNS(NS,'text');
+  t.setAttribute('x',x); t.setAttribute('y',y+4);
+  t.textContent = m;
+  labelsG.appendChild(t);
+});
+
+/* ---- zodiac ring (rotating) — drawn glyphs, gold on transparent, never emoji ---- */
+const zodiacIcons = ['z-aries','z-taurus','z-gemini','z-cancer','z-leo','z-virgo','z-libra','z-scorpio','z-sagittarius','z-capricorn','z-aquarius','z-pisces'];
+const zg = document.getElementById('zodiacRing');
+zodiacIcons.forEach((id,i)=>{
+  const deg = i*30 + 15;
+  const [x,y] = pt(233, deg);
+  const g = document.createElementNS(NS,'g');
+  g.setAttribute('transform', `translate(${x},${y})`);
+  const ring = document.createElementNS(NS,'circle');
+  ring.setAttribute('r',13); ring.setAttribute('fill','none');
+  ring.setAttribute('stroke','#5c4423'); ring.setAttribute('stroke-width',0.6); ring.setAttribute('opacity',0.6);
+  g.appendChild(ring);
+  const use = document.createElementNS(NS,'use');
+  use.setAttribute('href','#'+id);
+  use.setAttribute('x',-9); use.setAttribute('y',-9);
+  use.setAttribute('width',18); use.setAttribute('height',18);
+  use.setAttribute('stroke','#e7cd97');
+  use.setAttribute('stroke-width',1.15);
+  use.setAttribute('fill','none');
+  g.appendChild(use);
+  zg.appendChild(g);
+});
+
+/* ---- celestial reference circles + ecliptic (rotating) ---- */
+const ringsG = document.getElementById('celestialRings');
+const ringLabelsG = document.getElementById('ringLabels');
+const refCircles = [
+  {r:62,  label:'ARCTIC CIRCLE'},
+  {r:122, label:'TROPIC OF CANCER'},
+  {r:182, label:'CELESTIAL EQUATOR'},
+  {r:225, label:'TROPIC OF CAPRICORN'}
+];
+refCircles.forEach(({r,label})=>{
+  const c = document.createElementNS(NS,'circle');
+  c.setAttribute('cx',300); c.setAttribute('cy',300); c.setAttribute('r',r);
+  c.setAttribute('stroke-dasharray','1 4'); c.setAttribute('opacity',0.55);
+  ringsG.appendChild(c);
+  const [x,y] = pt(r, 205);
+  const t = document.createElementNS(NS,'text');
+  t.setAttribute('x',x); t.setAttribute('y',y);
+  t.setAttribute('transform', `rotate(${205-90} ${x} ${y})`);
+  t.textContent = label;
+  ringLabelsG.appendChild(t);
+});
+/* ecliptic: a circle offset from the pole, as on a real planisphere */
+const ecl = document.createElementNS(NS,'ellipse');
+ecl.setAttribute('cx',300); ecl.setAttribute('cy',258);
+ecl.setAttribute('rx',205); ecl.setAttribute('ry',192);
+ecl.setAttribute('transform','rotate(6 300 300)');
+ecl.setAttribute('fill','none'); ecl.setAttribute('stroke','#c19a5b');
+ecl.setAttribute('stroke-width',0.7); ecl.setAttribute('stroke-dasharray','5 3'); ecl.setAttribute('opacity',0.55);
+ringsG.appendChild(ecl);
+const eclLabel = document.createElementNS(NS,'text');
+const [ex,ey] = pt(233, 340);
+eclLabel.setAttribute('x',ex); eclLabel.setAttribute('y',ey);
+eclLabel.setAttribute('transform', `rotate(${340-90} ${ex} ${ey})`);
+eclLabel.textContent = 'ECLIPTIC';
+ringLabelsG.appendChild(eclLabel);
+
+/* ---- radiating hour lines (rotating) ---- */
+const hourG = document.getElementById('hourLines');
+for(let i=0;i<24;i++){
+  const deg = i*15;
+  const [x1,y1] = pt(30, deg);
+  const [x2,y2] = pt(248, deg);
+  const l = document.createElementNS(NS,'line');
+  l.setAttribute('x1',x1); l.setAttribute('y1',y1); l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+  hourG.appendChild(l);
+}
+
+/* ---- Milky Way band (rotating, soft blurred glow) ---- */
+const mwG = document.getElementById('milkyWay');
+const mwPatch = (r, deg, rx, ry, rot, op)=>{
+  const [x,y] = pt(r, deg);
+  const e = document.createElementNS(NS,'ellipse');
+  e.setAttribute('cx',x); e.setAttribute('cy',y);
+  e.setAttribute('rx',rx); e.setAttribute('ry',ry);
+  e.setAttribute('transform', `rotate(${rot} ${x} ${y})`);
+  e.setAttribute('fill','url(#mwGrad)'); e.setAttribute('opacity',op);
+  mwG.appendChild(e);
+};
+const mwAngle = 42; /* direction of the band across the disc */
+[ [-230,0.30],[-180,0.42],[-130,0.5],[-80,0.56],[-30,0.6],[20,0.6],[70,0.55],[120,0.48],[170,0.4],[220,0.28] ]
+  .forEach(([r,op])=> mwPatch(r, mwAngle, 105, 40, mwAngle, op));
+
+/* extra dense faint stars scattered inside the Milky Way band */
+const mwStarsG = document.getElementById('scatterStars');
+const mwSeed = [5,61,117,23,79,135,41,97,153,17,73,129,29,85,141,11,67,123,35,91,147,53,109,3];
+mwSeed.forEach((v,i)=>{
+  const r = -235 + (v*9.5)%470;
+  const jitter = ((v*13)%40)-20;
+  const [x,y] = pt(r, mwAngle);
+  const s = document.createElementNS(NS,'circle');
+  s.setAttribute('cx', x + Math.cos(toRad(mwAngle+90))*jitter);
+  s.setAttribute('cy', y + Math.sin(toRad(mwAngle+90))*jitter);
+  s.setAttribute('r', 0.5 + (v%3)*0.3);
+  s.setAttribute('opacity', 0.35 + (v%5)/10);
+  s.setAttribute('stroke','none');
+  mwStarsG.appendChild(s);
+});
+
+/* ---- flower cartouches at N / E / S / W (fixed) ---- */
+const flowersG = document.getElementById('flowerCartouches');
+const flowerAt = (deg)=>{
+  const [x,y] = pt(300, deg);
+  const g = document.createElementNS(NS,'g');
+  g.setAttribute('transform', `translate(${x},${y}) rotate(${deg})`);
+  g.innerHTML = `
+    <circle cx="0" cy="0" r="2" fill="#8f7038" stroke="none"/>
+    <path d="M0 0 C -7 -9, -15 -9, 0 0 C -15 9, -7 9, 0 0"/>
+    <path d="M0 0 C 7 -9, 15 -9, 0 0 C 15 9, 7 9, 0 0"/>
+    <path d="M0 0 C -6 -13, -1 -19, 0 0 C 1 -19, 6 -13, 0 0"/>
+    <path d="M0 0 C -6 13, -1 19, 0 0 C 1 19, 6 13, 0 0"/>
+  `;
+  flowersG.appendChild(g);
+};
+[0,90,180,270].forEach(flowerAt);
+
+/* ---- hand-placed constellations (rotating) ----
+   Positions are decorative, not astronomically precise —
+   arranged to read well on the disc, in the spirit of an antique chart. */
+const cg = document.getElementById('constellations');
+const clg = document.getElementById('constellationLabels');
+
+const drawConstellation = (pts, label, labelPos)=>{
+  const path = document.createElementNS(NS,'polyline');
+  path.setAttribute('points', pts.map(p=>p.join(',')).join(' '));
+  path.setAttribute('fill','none');
+  cg.appendChild(path);
+  pts.forEach(([x,y], i)=>{
+    const c = document.createElementNS(NS,'circle');
+    c.setAttribute('cx',x); c.setAttribute('cy',y);
+    c.setAttribute('r', i===0 ? 2.6 : 1.7 + (i%2)*0.5);
+    c.setAttribute('stroke','none');
+    cg.appendChild(c);
+  });
+  if(label){
+    const [lx,ly] = labelPos || pts[0];
+    const t = document.createElementNS(NS,'text');
+    t.setAttribute('x',lx); t.setAttribute('y',ly);
+    t.textContent = label;
+    clg.appendChild(t);
+  }
+};
+
+/* -- the two bears, close to the pole -- */
+drawConstellation(
+  [[300,300],[300,278],[292,252],[276,244],[261,254],[268,269],[287,266]],
+  'URSA MINOR', [246,250]
+);
+drawConstellation(
+  [[418,150],[444,133],[470,140],[482,118],[460,102],[434,109],[417,127]],
+  'URSA MAJOR', [468,102]
+);
+drawConstellation(
+  [[300,258],[321,238],[347,228],[368,239],[377,262],[365,283],[344,292],[327,276]],
+  'DRACO', [385,258]
+);
+
+/* -- around Cassiopeia / Cepheus -- */
+drawConstellation(
+  [[233,230],[253,209],[279,220],[273,246],[241,251]],
+  'CEPHEUS', [214,202]
+);
+drawConstellation(
+  [[178,158],[203,180],[224,159],[249,181],[270,157]],
+  'CASSIOPEIA', [196,138]
+);
+drawConstellation(
+  [[138,208],[159,193],[180,204],[196,188],[207,204]],
+  'PERSEUS', [115,220]
+);
+drawConstellation(
+  [[108,289],[133,268],[159,279],[153,306],[123,309],[108,289]],
+  'AURIGA', [90,262]
+);
+
+/* -- zodiac belt constellations, outer ring -- */
+drawConstellation(
+  [[142,382],[161,358],[151,336],[128,341],[116,364]],
+  'GEMINI', [96,395]
+);
+drawConstellation(
+  [[93,432],[120,411],[146,426]],
+  'TAURUS', [80,442]
+);
+drawConstellation(
+  [[141,472],[161,456],[181,463]],
+  'ARIES', [122,489]
+);
+drawConstellation(
+  [[210,455],[226,432],[243,458],[210,455]],
+  'TRIANGULUM', [252,462]
+);
+drawConstellation(
+  [[238,146],[262,163],[287,152],[309,168]],
+  'ANDROMEDA', [230,128]
+);
+drawConstellation(
+  [[352,190],[388,182],[406,206],[382,228],[350,220],[352,190]],
+  'PEGASUS', [408,175]
+);
+drawConstellation(
+  [[287,470],[268,452],[280,432],[260,420]],
+  'PISCES', [292,486]
+);
+drawConstellation(
+  [[352,462],[372,440],[398,448],[420,432],[434,452]],
+  'CETUS', [452,462]
+);
+drawConstellation(
+  [[398,392],[418,374],[412,352],[434,344]],
+  'AQUARIUS', [446,398]
+);
+drawConstellation(
+  [[430,340],[452,352],[448,376]],
+  'CAPRICORNUS', [462,330]
+);
+drawConstellation(
+  [[435,300],[449,290],[463,298],[454,312]],
+  'DELPHINUS', [472,282]
+);
+drawConstellation(
+  [[400,258],[420,244],[440,250],[458,236]],
+  'AQUILA', [462,222]
+);
+drawConstellation(
+  [[368,200],[386,192],[390,210],[372,214]],
+  'LYRA', [372,180]
+);
+
+/* -- mid-radius, near the pole side -- */
+drawConstellation(
+  [[236,300],[252,278],[276,272],[292,286],[286,306],[262,314]],
+  'HERCULES', [214,278]
+);
+drawConstellation(
+  [[228,332],[246,320],[262,332]],
+  'CORONA BOREALIS', [206,344]
+);
+drawConstellation(
+  [[214,362],[232,344],[228,320],[248,306]],
+  'BOOTES', [190,378]
+);
+
+/* ---- scatter stars (rotating) ---- */
+const sg = document.getElementById('scatterStars');
+const seeded = [12,47,88,133,171,205,238,29,64,101,146,182,219,3,55,96,140,177,211,244,18,73,109,158,196,230,8,41,77,120,163,199,225,35,68,113,151,187,222];
+seeded.forEach((v,i)=>{
+  const r = 40 + (v % 200);
+  const deg = (i*37 + v) % 360;
+  const [x,y] = pt(r,deg);
+  const s = document.createElementNS(NS,'circle');
+  s.setAttribute('cx',x); s.setAttribute('cy',y);
+  s.setAttribute('r', 0.6 + (v%3)*0.4);
+  s.setAttribute('stroke','none');
+  s.setAttribute('opacity', 0.4 + (v%6)/10);
+  sg.appendChild(s);
+});
+
+/* ---- ambient background starfield on canvas ---- */
+const canvas = document.getElementById('bgStars');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width = innerWidth; canvas.height = document.body.scrollHeight; }
+resize();
+window.addEventListener('resize', resize);
+const bgStars = Array.from({length: 140}, ()=>({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  r: Math.random()*1.2 + 0.2,
+  a: Math.random()*0.6 + 0.15,
+  tw: Math.random()*0.015 + 0.003,
+  p: Math.random()*Math.PI*2
+}));
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#f4efe2';
+  bgStars.forEach(s=>{
+    s.p += s.tw;
+    const alpha = s.a * (0.6 + 0.4*Math.sin(s.p));
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+draw();
+setTimeout(resize, 400);
+</script>
+
+</body>
+</html>
